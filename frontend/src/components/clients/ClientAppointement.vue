@@ -3,7 +3,7 @@
         <h1 class="text-center mt-4 mb-4">Client Appointments</h1>
 
         <div v-if="appointments" class="container">
-            <div v-for="appointment in appointments" :key="appointment.id" class="mb-4">
+            <div v-for="appointment in appointments" :key="appointment._id" class="mb-4">
                 <div class="card">
                     <div class="card-body">
                         <p><strong>Date:</strong> {{ appointment.date }}</p>
@@ -109,7 +109,6 @@ export default {
 };
 </script>
 
-  
 <style scoped>
 .app-container {
     display: flex;
@@ -129,16 +128,3 @@ export default {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 </style>
-With these changes, when you click the "Add Appointment" button, the appointment form will appear in the center of the page. The .app-container class is used to center the entire content of the template, and the .form-container class is responsible for centering the form itself. The opacity transition in the .form-container class is optional and can be adjusted according to your preference.
-
-
-
-
-Was this response better or worse?
-Better
-Worse
-Same
-
-
-
-  

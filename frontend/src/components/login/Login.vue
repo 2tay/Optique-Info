@@ -56,16 +56,25 @@ export default {
   },
   methods: {
     async login() {
-      let result = await axios.get(
-        `http://localhost:3000/admins?name=${this.name}&password=${this.password}`
-      );
-      console.log("user clicked in login", this.name, this.password);
-      console.log(result);
-      if (result.status == 200 && result.data.length > 0) {
-        localStorage.setItem("admin-info", JSON.stringify(result.data[0]));
-        this.$router.push({ name: 'welcome' });
+      try {
+        let result = await axios.post(
+          `http://localhost:3000/admins/login`,
+          {
+            name: this.name,
+            password: this.password
+          }
+        );
+        console.log("user clicked in login", this.name, this.password);
+        console.log(result);
+        if (result.status == 200 && result.data) {
+          localStorage.setItem("admin-info", JSON.stringify(result.data));
+          this.$router.push({ name: 'welcome' });
+        }
+      } catch (error) {
+        console.error(error);
       }
-    },
+    }
+
   },
 
 };

@@ -4,7 +4,7 @@
 
     <!-- Display existing payments for the client -->
     <div v-if="payments && payments.length > 0" class="payment-list">
-      <div v-for="payment in payments" :key="payment.id" class="payment-item">
+      <div v-for="payment in payments" :key="payment._id" class="payment-item">
         <p><strong>Amount:</strong> {{ payment.amount }}</p>
         <p><strong>Date:</strong> {{ payment.date }}</p>
       </div>

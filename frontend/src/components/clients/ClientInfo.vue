@@ -100,7 +100,7 @@ export default {
         this.client.nextAppointment = this.newNextAppointment;
         this.client.notes = this.newNotes.map((note) => ({ ...note }));
         try {
-          await axios.put(`http://localhost:3000/clientInformation/${this.client.id}`, this.client);
+          await axios.put(`http://localhost:3000/clientInformation/${this.client._id}`, this.client);
           alert('Prescription saved successfully!');
         } catch (error) {
           console.error('Error saving prescription:', error);

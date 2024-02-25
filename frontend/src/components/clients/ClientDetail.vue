@@ -40,13 +40,13 @@
           </tbody>
         </table>
         <div v-if="currentPage === 'pageInfo'">
-          <pageInfo :clientId="client.id" />
+          <pageInfo :clientId="client._id" />
         </div>
         <div v-if="currentPage === 'pageAppointments'">
-          <pageAppointments :clientId="client.id" />
+          <pageAppointments :clientId="client._id" />
         </div>
         <div v-if="currentPage === 'pagePayments'">
-          <pagePayments :clientId="client.id" />
+          <pagePayments :clientId="client._id" />
         </div>
       </div>
     </div>

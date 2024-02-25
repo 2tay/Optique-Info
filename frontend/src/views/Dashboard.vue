@@ -20,7 +20,7 @@
                         <td>{{ admin.name }}</td>
                         <td>
                             <button type="button" class="btn btn-secondary" @click="showUpdateForm(admin)">Update</button>
-                            <button type="button" class="btn btn-danger" @click="deleteAdmin(admin.id)">Delete</button>
+                            <button type="button" class="btn btn-danger" @click="deleteAdmin(admin)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -143,19 +143,27 @@ export default {
         }
     },
     methods: {
-        async deleteAdmin(adminSelected) {
-            // to check if statement before entering to it
-            console.log("adminSelected:", adminSelected);
+        async deleteAdmin(admin) {
+            // Extract the _id from the admin object
+            const adminId = admin._id;
+
+            // Log to check the adminId and this.adminId
+            console.log("adminSelected:", adminId);
             console.log("this.adminId:", this.adminId);
 
-            //if statement
-            if (adminSelected === this.adminId) {
+            // Check if the admin to be deleted is the logged-in admin
+            if (adminId === this.adminId) {
+                // If it is, set the error flag and message
                 this.cantDelete = true;
-                this.cantDeleteMessage = 'you can not delete yourself';
+                this.cantDeleteMessage = 'You cannot delete yourself';
             } else {
                 try {
-                    await axios.delete(`http://localhost:3000/admins/${adminSelected}`);
-                    this.listOfAdmins = this.listOfAdmins.filter((admin) => admin.id !== adminSelected);
+                    // If not, proceed with deletion
+                    await axios.delete(`http://localhost:3000/admins/${adminId}`);
+
+                    // Update the listOfAdmins after deletion
+                    this.listOfAdmins = this.listOfAdmins.filter((a) => a._id !== adminId);
+
                     console.log('Admin deleted successfully');
                 } catch (error) {
                     console.error('Error deleting admin:', error);
@@ -165,10 +173,12 @@ export default {
 
 
 
+
+
         showUpdateForm(admin) {
             this.showUpdateFormFlag = true;
             this.newAdminName = admin.name;
-            this.selectedAdminId = admin.id;
+            this.selectedAdminId = admin._id;
         },
 
         cancelUpdate() {
@@ -188,7 +198,7 @@ export default {
 
                 // Update the admins list with the updated name
                 this.listOfAdmins = this.listOfAdmins.map((admin) => {
-                    if (admin.id === this.selectedAdminId) {
+                    if (admin._id === this.selectedAdminId) {
                         return { ...admin, name: this.newAdminName };
                     }
                     return admin;
